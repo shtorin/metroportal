@@ -17,7 +17,9 @@ namespace MetroPortal.Models {
         public double Longtitude { get; set; }
         // Район в котором находится станция
         public int DistrictId { get; set; }
+        public int LineId { get; set; }
 
         public virtual Disctrict District { get; set; }
+        public virtual Line Line { get; set; }
     }
 }

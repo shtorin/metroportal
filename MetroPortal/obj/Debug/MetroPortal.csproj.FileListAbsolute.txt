@@ -77,6 +77,9 @@ C:\ASP.NET_projects\MetroPortal\MetroPortal\bin\Microsoft.Owin.Security.OAuth.xm
 C:\ASP.NET_projects\MetroPortal\MetroPortal\bin\Microsoft.Owin.Security.Google.xml
 C:\ASP.NET_projects\MetroPortal\MetroPortal\bin\Microsoft.Owin.Security.Twitter.xml
 C:\ASP.NET_projects\MetroPortal\MetroPortal\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\ASP.NET_projects\MetroPortal\MetroPortal\obj\Debug\MetroPortal.csprojResolveAssemblyReference.cache
 C:\ASP.NET_projects\MetroPortal\MetroPortal\obj\Debug\MetroPortal.dll
 C:\ASP.NET_projects\MetroPortal\MetroPortal\obj\Debug\MetroPortal.pdb
+C:\ASP.NET_projects\MetroPortal\MetroPortal\obj\Debug\MetroPortal.csprojResolveAssemblyReference.cache
+C:\ASP.NET_projects\MetroPortal\MetroPortal\obj\Debug\MetroPortal.Migrations.init.resources
+C:\ASP.NET_projects\MetroPortal\MetroPortal\obj\Debug\MetroPortal.csproj.GenerateResource.Cache
+C:\ASP.NET_projects\MetroPortal\MetroPortal\obj\Debug\MetroPortal.Migrations.init1.resources

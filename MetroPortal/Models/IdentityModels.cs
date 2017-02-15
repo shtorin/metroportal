@@ -21,7 +21,7 @@ namespace MetroPortal.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("MetroPortalEntities", throwIfV1Schema: false)
         {
         }
 

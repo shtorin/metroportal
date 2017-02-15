@@ -12,6 +12,9 @@ namespace MetroPortal
     {
         protected void Application_Start()
         {
+            // Начальное заполнение БД данными
+            System.Data.Entity.Database.SetInitializer(new MetroPortal.Models.SampleData());
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

@@ -10,7 +10,7 @@ namespace MetroPortal.Models {
 
         public int LineId { get; set; }
         public string LineName { get; set; }
-        public char Color { get; set; }
+        public int Color { get; set; }
         // Станции ветки
         public List<Station> Stations { get; set; }
     }
