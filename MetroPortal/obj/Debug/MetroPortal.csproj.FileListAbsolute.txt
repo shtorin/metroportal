@@ -79,7 +79,12 @@ C:\ASP.NET_projects\MetroPortal\MetroPortal\bin\Microsoft.Owin.Security.Twitter.
 C:\ASP.NET_projects\MetroPortal\MetroPortal\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\ASP.NET_projects\MetroPortal\MetroPortal\obj\Debug\MetroPortal.dll
 C:\ASP.NET_projects\MetroPortal\MetroPortal\obj\Debug\MetroPortal.pdb
+C:\ASP.NET_projects\MetroPortal\MetroPortal\bin\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\ASP.NET_projects\MetroPortal\MetroPortal\bin\Microsoft.Extensions.DependencyInjection.dll
+C:\ASP.NET_projects\MetroPortal\MetroPortal\bin\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\ASP.NET_projects\MetroPortal\MetroPortal\bin\Microsoft.Extensions.DependencyInjection.xml
+C:\ASP.NET_projects\MetroPortal\MetroPortal\bin\Microsoft.Extensions.DependencyInjection.Abstractions.xml
 C:\ASP.NET_projects\MetroPortal\MetroPortal\obj\Debug\MetroPortal.csprojResolveAssemblyReference.cache
 C:\ASP.NET_projects\MetroPortal\MetroPortal\obj\Debug\MetroPortal.Migrations.init.resources
 C:\ASP.NET_projects\MetroPortal\MetroPortal\obj\Debug\MetroPortal.csproj.GenerateResource.Cache
-C:\ASP.NET_projects\MetroPortal\MetroPortal\obj\Debug\MetroPortal.Migrations.init1.resources
+C:\ASP.NET_projects\MetroPortal\MetroPortal\obj\Debug\MetroPortal.Migrations.transfers_corr.resources

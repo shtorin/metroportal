@@ -8,6 +8,10 @@ namespace MetroPortal.Models {
     // Линия метрополитена
     public class Line {
 
+        public Line() {
+            Stations = new List<Station>();
+        }
+
         public int LineId { get; set; }
         public string LineName { get; set; }
         public int Color { get; set; }

@@ -1,0 +1,70 @@
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<MetroPortal.Models.Route>
+
+@{
+    ViewBag.Title = "Мои маршруты";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Мои маршуты</h2>
+
+
+@if (Request.IsAuthenticated) { 
+    <p>
+        @Html.ActionLink("Добавить маршрут", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RouteName)
+            </th>
+            <th>Откуда</th>
+            <th>Куда</th>
+            <th>Станций</th>
+            <th>Управление</th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.ActionLink(item.RouteName, "Details", new { routeId = item.RouteId })                
+            </td>
+            <td>                   
+                @{
+                    if (item.RouteStations.Count > 0) {
+                        @Html.DisplayFor(m => item.RouteStations[0].Station.StationName)
+                    } else {
+                        @Html.Raw("<small>—</small>")
+                    }
+
+                }
+            </td>
+            <td>
+                @{
+                    if (item.RouteStations.Count > 1) {
+                        @Html.DisplayFor(m => item.RouteStations[item.RouteStations.Count - 1].Station.StationName)
+                    }
+                    else {
+                        @Html.Raw("<small>—</small>")
+                    }
+
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(i => item.RouteStations.Count)
+            </td>
+            <td>
+                @Html.ActionLink("Подробнее", "Details", new { routeId = item.RouteId }) |
+                @Html.ActionLink("Удалить", "Delete", new { routeId = item.RouteId })
+            </td>
+        </tr>
+    }
+
+</table>
+} else {
+    <p>Работа с маршрутами доступна только зарегистрированным пользователям.</p>
+    <ul>
+        <li>@Html.ActionLink("Войти", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li>@Html.ActionLink("Зарегистрироваться", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>        
+    </ul>
+}

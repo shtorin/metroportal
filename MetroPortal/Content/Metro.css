@@ -1,0 +1,81 @@
+﻿#map {
+    height: 600px;
+    width: 100%;
+}
+
+.infoWindowContent {
+    font-size:  14px !important;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+
+.line_1 {
+    color: #941111;
+}
+
+.line_2 {
+    color: #1f7d29;
+}
+
+.line_3 {
+    color: #30488a;
+}
+
+.line_4 {
+    color: #2facd4;
+}
+
+.line_5 {
+    color: #463219;
+}
+
+.line_6 {
+    color: #ff6a00;
+}
+
+.line_7 {
+    color: #5c2582;
+}
+
+.line_8 {
+    color: #d4c307;
+}
+
+.line_9 {
+    color: #e6fc1c;
+}
+
+.line_10 {
+    color: #515151;
+}
+
+
+.line_11 {
+    color: #46ea3f;
+}
+
+.line_12 {
+    color: #39d4c6;
+}
+
+.line_13 {
+    color: #f6abf7;
+}
+
+.line_14 {
+    color: #000894;
+}
+
+.line_15 {
+    color: #acacac;
+}
+
+.line_16 {
+    color: #ffffff;
+}
+
+h2 {
+    margin-bottom:0;
+    margin-top: 0;
+}
