@@ -1,4 +1,4 @@
-using System.Web;
+﻿using System.Web;
 using System.Web.Optimization;
 
 namespace MetroPortal {
@@ -27,13 +27,10 @@ namespace MetroPortal {
                         "~/Scripts/MetroApplication.js",
                         "~/Scripts/RouteService.js",
                         "~/Scripts/MapService.js",
-                        "~/Scripts/StationsService.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/StationsController").Include(
-                        "~/Scripts/StationsController.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/RouteController").Include(
-                        "~/Scripts/RouteController.js"));
+                        "~/Scripts/StationsService.js",
+                        "~/Scripts/StationsController.js",
+                        "~/Scripts/RouteController.js"
+                        ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
