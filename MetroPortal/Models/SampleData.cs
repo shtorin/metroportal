@@ -112,7 +112,7 @@ namespace MetroPortal.Models {
             context.SaveChanges();
 
             readStationsFromFile(context, HttpContext.Current.Server.MapPath("~/Content/stations.txt"));
-            readStationsFromFile(context, HttpContext.Current.Server.MapPath("~/Content/lines.txt"));
+            readStationsFromFile(context, HttpContext.Current.Server.MapPath("~/Content/transfers.txt"));
 
             context.SaveChanges();
         }
