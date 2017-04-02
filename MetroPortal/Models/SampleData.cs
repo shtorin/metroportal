@@ -110,9 +110,9 @@ namespace MetroPortal.Models {
             var lines = getLinesList();
             lines.ForEach(line => context.Lines.AddOrUpdate(l => l.LineName, line));
             context.SaveChanges();
-
+            // Считываем данные о станциях и пересадках из файлов
             readStationsFromFile(context, HttpContext.Current.Server.MapPath("~/Content/stations.txt"));
-            readStationsFromFile(context, HttpContext.Current.Server.MapPath("~/Content/lines.txt"));
+            readStationsFromFile(context, HttpContext.Current.Server.MapPath("~/Content/transfers.txt"));
 
             context.SaveChanges();
         }

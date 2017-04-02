@@ -2,7 +2,7 @@
     ViewBag.Title = "Карта Московского метро";
 }
 
-@section Scripts{
+@section Scripts {
 
     <script defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGc7wxYJ4M5UPd1kV1RtqcqTIuta4n27E">
@@ -11,13 +11,9 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
     <script src="//rawgit.com/angular-ui/angular-google-maps/2.0.X/dist/angular-google-maps.js"></script>
 
-    @Scripts.Render("~/Scripts/MetroApplication.js");
-    @Scripts.Render("~/Scripts/StationsService.js");
-    @Scripts.Render("~/Scripts/MapService.js");
-    @Scripts.Render("~/Scripts/StationsController.js");
+    @Scripts.Render("~/bundles/ngServices")
+    @Scripts.Render("~/bundles/StationsController")
 }
-
-@Styles.Render("~/Content/Metro.css")
 
 <div class="container" ng-app="ngMetroApp" ng-controller="StationsController">
 
