@@ -1,0 +1,162 @@
+﻿@using Newtonsoft.Json
+
+@model MetroPortal.Models.Route
+
+@{
+    ViewBag.Title = "Создание нового маршрута";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts{
+    <script defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGc7wxYJ4M5UPd1kV1RtqcqTIuta4n27E">
+    </script>
+
+    @* google map directive js *@
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
+    <script src="//rawgit.com/angular-ui/angular-google-maps/2.0.X/dist/angular-google-maps.js"></script>
+
+    @* angular files *@    
+    <script src="~/Scripts/MetroApplication.js"></script>
+    <script src="~/Scripts/StationsService.js"></script>
+    <script src="~/Scripts/MapService.js"></script>
+    <script src="~/Scripts/RouteService.js"></script>    
+    <script src="~/Scripts/Stations.js"></script>
+    <script src="~/Scripts/RouteController.js"></script>    
+}
+
+@Styles.Render("~/Content/Metro.css")
+
+<script>
+
+         window.routeJson = @Html.Raw(JsonConvert.SerializeObject(Model, Formatting.Indented, new JsonSerializerSettings() {
+                                    ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore }));
+</script>
+
+<div div class="container" ng-app="ngMetroApp" ng-controller="RouteController">
+
+    <hr />
+    <div class="row col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><h4>{{ route.RouteName }}</h4></div>
+            <div class="panel-body">@Html.TextBoxFor(m => m.RouteName, new { @ng_model = "route.RouteName", @placeholder = "Введите название...", @ng_disabled = "!stateRouteEditing" })</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="row col-md-4">
+            <div class="list-group" id="routeStations">
+                <!-- Станции маршрута -->
+                <a href="#" class="list-group-item" id="routeStation_{{ $index }}" 
+                   ng-repeat="routeStation in route.RouteStations track by $index" 
+                   ng-click="openInfoWindow($event, routeStation.Station)">
+
+                    <span ng-if="$last && stateRouteEditing" 
+                          ng-click="removeLastStationFromRoute()" 
+                          ng-class="stateRouteEditing ? 'enabled' : 'disabled'">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </span>
+                    <span class="glyphicon glyphicon-th-large line_{{ routeStation.Station.Line.Color }}"></span>
+                    {{ routeStation.Station.StationName }}
+                </a>
+                <!-- /Станции маршрута -->
+                <!-- Блок добавления станции к маршруту -->
+                <div class="list-group-item list-group-item-heading" ng-click="addNewStation()">
+                    <div id="newStation">
+                        <div id="newStationSelect">
+                            <!-- Выбор первой станции -->
+                            <div id="routeStart" ng-show="route.RouteStations.length == 0">
+                                Откуда начинаем?
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="allLines" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+                                            ng-class="stateRouteEditing ? 'enabled' : 'disabled'">
+                                        <span ng-show="startLine != null">{{ startLine.LineName }}</span>
+                                        <span ng-show="startLine == null">Линия метро</span>
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <li ng-repeat="line in lines" ng-click="setStartLine(line)">
+                                            <a href="#">{{ line.LineName }}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div id="firstStation" ng-show="startLine != null">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="startLineStations" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                            ng-class="stateRouteEditing ? 'enabled' : 'disabled'">
+                                        Выберите станцию
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <li ng-repeat="station in stations | filter:belongsToLine(startLine)" 
+                                            ng-click="addStationToRoute(station)">
+                                            <a href="#">{{ station.StationName }}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- /Выбор первой станции -->
+
+                            <!-- Добавление станций, доступных с последней в маршруте -->
+                            <div ng-show="route.RouteStations.length > 0">
+                                Продолжить движение по текущей ветке
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" type="button" id="currentLineStations" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                            ng-class="stateRouteEditing ? 'enabled' : 'disabled'">
+                                        {{ currentLine.LineName }}
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        <li ng-repeat="station in stations | filter:belongsToLine(currentLine)" ng-click="addStationToRoute(station)" ng-hide="station.StationId == lastStation.StationId">
+                                            <a href="#">{{ station.StationName }}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div id="transfers" ng-show="lastStation.TransfersTo.length > 0">
+                                    <hr />
+                                    Перейти на другую линию
+                                    <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" type="button" id="currentLineStations" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                                ng-class="stateRouteEditing ? 'enabled' : 'disabled'">
+                                            Переходы
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                            <li ng-repeat="transferStation in lastStation.TransfersTo" ng-click="addStationToRoute(transferStation)">
+                                                <a href="#">{{ transferStation.StationName }}
+                                                    <span class="line_{{ transferStation.Line.Color }}">({{ transferStation.Line.LineName }})</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Добавление станций, доступных с последней в маршруте -->
+
+                        </div>
+                    </div>
+                </div>
+                <!-- /Блок добавления станции к маршруту -->
+            </div>
+
+            <button type="button" class="btn btn-success" ng-click="saveRoute()" ng-class="stateRouteEditing ? 'enabled' : 'disabled'">{{ stateRouteEditing ? "Сохранить" : "Сохранение..."}}</button>
+            <button type="button" class="btn btn-warning">Отмена</button>
+
+        </div>
+
+        <!-- Карта -->
+        <div class="row col-md-offset-1 col-md-7">
+            <div class="well">
+                <div id="map"></div>
+            </div>
+        </div>
+        <!-- /Карта -->
+
+    </div>
+
+
+
+
+
+</div>
