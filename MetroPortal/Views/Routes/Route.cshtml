@@ -1,4 +1,4 @@
-﻿@using Newtonsoft.Json
+@using Newtonsoft.Json
 
 @model MetroPortal.Models.Route
 
@@ -16,16 +16,9 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
     <script src="//rawgit.com/angular-ui/angular-google-maps/2.0.X/dist/angular-google-maps.js"></script>
 
-    @* angular files *@    
-    <script src="~/Scripts/MetroApplication.js"></script>
-    <script src="~/Scripts/StationsService.js"></script>
-    <script src="~/Scripts/MapService.js"></script>
-    <script src="~/Scripts/RouteService.js"></script>    
-    <script src="~/Scripts/Stations.js"></script>
-    <script src="~/Scripts/RouteController.js"></script>    
+    @Scripts.Render("~/bundles/ngServices")
+    @Scripts.Render("~/bundles/RouteController")
 }
-
-@Styles.Render("~/Content/Metro.css")
 
 <script>
 
