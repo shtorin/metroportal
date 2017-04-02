@@ -1,1 +1,0 @@
-﻿var ngMetroApp = angular.module('ngMetroApp', ['uiGmapgoogle-maps']);
