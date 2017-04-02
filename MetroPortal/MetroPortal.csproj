@@ -249,6 +249,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Metro.css" />
     <Content Include="Content\Route.css" />
+    <Content Include="Content\Stations.txt" />
+    <Content Include="Content\Transfers.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
