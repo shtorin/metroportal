@@ -1051,7 +1051,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\RouteController.js" />
     <Content Include="Scripts\RouteService.js" />
+    <Content Include="Scripts\StationsController.js" />
     <Content Include="Scripts\StationsService.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">

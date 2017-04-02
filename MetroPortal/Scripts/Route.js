@@ -6,15 +6,15 @@
     // Получаем маршрут из глобального объекта window
     $scope.route = window.routeJson;
     $scope.routeLength = $scope.route.length;
-
+    
     // Добавляем на карту маркеры для станций маршрута
     $scope.route.RouteStations.forEach(function (routeStation) {
         MapService.createMarker($scope.map, routeStation.Station, MapService.MarkerIcons.greenIcon, routeStation.Station.StationName, false);
     });
-
+    
     // Режим редактирования маршрута по умолчанию включен
     $scope.stateRouteEditing = true;
-
+    
     // Обновляем параметры маршрута
     updateRouteParameters();
 
@@ -27,7 +27,7 @@
         function (error) {
             console.log("Unable to load stations data");
         });
-
+    
     // Список линий метрополитена
     $scope.lines = [];
     StationsService.getLines()
@@ -35,7 +35,7 @@
             $scope.lines = lines.data;
         }, function (error) {
             console.log("Unable to load lines data");
-        });
+        });    
 
     // Метод добавляющий станцию к маршруту
     $scope.addStationToRoute = function (station) {
@@ -47,7 +47,7 @@
             RouteId: $scope.route.RouteId,
             StationId: station.StationId,
             Station: detailedStation
-        };
+        };        
         $scope.route.RouteStations.push(routeStation);
         console.log(routeStation);
         // Добавляем маркер

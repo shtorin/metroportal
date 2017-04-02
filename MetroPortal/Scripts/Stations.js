@@ -31,7 +31,7 @@
     $scope.toggleSelection = function (selectedLineId) {
 
         $scope.selectedLine = $scope.selectedLine != selectedLineId ? selectedLineId : null;
-
+        
         MapService.markers.forEach(function (marker) {
             if (marker.station.LineId == $scope.selectedLine) {
                 marker.setIcon(MapService.MarkerIcons.greenIcon);
