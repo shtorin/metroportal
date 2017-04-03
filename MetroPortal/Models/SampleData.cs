@@ -22,21 +22,24 @@ namespace MetroPortal.Models {
                 new Line() { LineName = "Филёвская", Color = 3, Stations = new List<Station>() },
                 new Line() { LineName = "Кольцевая", Color = 4, Stations = new List<Station>() },
                 new Line() { LineName = "Калужско-Рижская", Color = 5, Stations = new List<Station>() },
-                new Line() { LineName = "Таганско-Краснопресненская	", Color = 6, Stations = new List<Station>() },
-                new Line() { LineName = "Калининская", Color = 7, Stations = new List<Station>() },
-                new Line() { LineName = "Солнцевская", Color = 8, Stations = new List<Station>() },
-                new Line() { LineName = "Серпуховско-Тимирязевская", Color = 9, Stations = new List<Station>() },
-                new Line() { LineName = "Люблинско-Дмитровская", Color = 10, Stations = new List<Station>() },
-                new Line() { LineName = "Каховская", Color = 11, Stations = new List<Station>() },
-                new Line() { LineName = "Бутовская", Color = 12, Stations = new List<Station>() },
-                new Line() { LineName = "Монорельс", Color = 13, Stations = new List<Station>() },
-                new Line() { LineName = "Московское центральное кольцо", Color = 14, Stations = new List<Station>() }
+                new Line() { LineName = "Таганско-Краснопресненская", Color = 6, Stations = new List<Station>() },
+                new Line() { LineName = "Калининско-Солнцевская", Color = 7, Stations = new List<Station>() },                
+                new Line() { LineName = "Серпуховско-Тимирязевская", Color = 8, Stations = new List<Station>() },
+                new Line() { LineName = "Люблинско-Дмитровская", Color = 9, Stations = new List<Station>() },
+                new Line() { LineName = "Каховская", Color = 10, Stations = new List<Station>() },
+                new Line() { LineName = "Бутовская", Color = 11, Stations = new List<Station>() },
+                new Line() { LineName = "Монорельс", Color = 12, Stations = new List<Station>() },
+                new Line() { LineName = "Московское центральное кольцо", Color = 13, Stations = new List<Station>() }
             };
 
             return allLines;
         }
 
+        // Начальное заполнение БД списком переходов между станциями
+        // Структура файла: название линии станции с которой осуществляется пересадка, название самой станции, ..
+        // .. название линии станции на которую осуществляется пересадка, название станции. Разделитель - табуляция.
         public void readTransfersFromFile(MetroPortalEntities context, string fileName) {
+
             using (var fs = File.OpenRead(fileName))
             using (var reader = new StreamReader(fs)) {
 
@@ -57,17 +60,18 @@ namespace MetroPortal.Models {
                         var stationTo = context.Stations.Single(s => s.StationName == stationToName && s.LineId == lineTo.LineId);
 
                         stationFrom.TransfersTo.Add(stationTo);
-
-                        context.SaveChanges();
                     }
                     catch (InvalidOperationException ex) {
-
+                        System.Diagnostics.Debug.WriteLine(ex);
                     }
-                }
 
+                    context.SaveChanges();
+                }
             }
         }
 
+        // Начальное заполнение БД списком станций
+        // Структура файла: название линии станции, название станции, широта, долгота. Разделитель - табуляция.        
         public void readStationsFromFile(MetroPortalEntities context, string fileName) {
             using (var fs = File.OpenRead(fileName))
             using (var reader = new StreamReader(fs)) {
@@ -79,6 +83,7 @@ namespace MetroPortal.Models {
 
                         var lineName = values[0];
                         var stationName = values[1];
+
                         double latitude;
                         double.TryParse(values[2], NumberStyles.Any, CultureInfo.InvariantCulture, out latitude);
                         double longtitude;
@@ -92,13 +97,14 @@ namespace MetroPortal.Models {
                             Line = context.Lines.Single(l => l.LineName == lineName)
                         };
                         currentLine.Stations.Add(newStation);
-                        context.Stations.AddOrUpdate(s => s.StationName, newStation);
-
-                        context.SaveChanges();
+                        context.Stations.Add(newStation);
+                        
                     }
                     catch (InvalidOperationException ex) {
-
+                        System.Diagnostics.Debug.WriteLine(ex);
                     }
+
+                    context.SaveChanges();
                 }
             }
         }
@@ -111,11 +117,16 @@ namespace MetroPortal.Models {
             lines.ForEach(line => context.Lines.AddOrUpdate(l => l.LineName, line));
             context.SaveChanges();
 
-            readStationsFromFile(context, HttpContext.Current.Server.MapPath("~/Content/stations.txt"));
-            readTransfersFromFile(context, HttpContext.Current.Server.MapPath("~/Content/transfers.txt"));
+            string contentPath = AppDomain.CurrentDomain.BaseDirectory + "/../MetroPortal/Content/";
+            readStationsFromFile(context, contentPath + "Stations.txt");
+            readTransfersFromFile(context, contentPath + "Transfers.txt");
 
             context.SaveChanges();
         }
 
+
+        public override void InitializeDatabase(MetroPortalEntities context) {
+            Seed(context);
+        }
     }
 }
