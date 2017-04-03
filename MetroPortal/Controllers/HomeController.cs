@@ -14,15 +14,13 @@ namespace MetroPortal.Controllers {
 
         MetroPortalEntities metroDB = new MetroPortalEntities();
 
+        // Главная страница
         public ActionResult Index() {
 
             return View();
         }
-
-        /// <summary>
-        /// Возвращает список станций в формате JSON
-        /// </summary>
-        /// <returns>Строка, </returns>
+        
+        // Возвращает список станций в формате JSON
         public string GetStations() {
 
             // Выбираем станции, не включаем в отбор поля, которые могут привести к зацикливанию ссылок
@@ -51,6 +49,7 @@ namespace MetroPortal.Controllers {
                                                ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
         }
 
+        // Возвращает список линий в формате JSON
         public string GetLines() {
 
             var lines = metroDB.Lines.ToList();
@@ -59,13 +58,5 @@ namespace MetroPortal.Controllers {
                                                ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
         }
 
-
-        [HttpGet]
-        public string AddTransfers() {
-            SampleData sd = new SampleData();
-            sd.readTransfersFromFile(metroDB, "~/Content/Transfers.txt");
-
-            return "OK";
-        }
     }
 }

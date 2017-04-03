@@ -17,7 +17,7 @@ namespace MetroPortal.Controllers
     {
         private MetroPortalEntities db = new MetroPortalEntities();
 
-        // GET: Route
+        // Список маршрутов
         [Authorize]
         public ActionResult Index()
         {
@@ -29,10 +29,7 @@ namespace MetroPortal.Controllers
             return View(userRoutes);
         }
 
-        /// <summary>
-        /// Создание нового маршрута
-        /// </summary>
-        /// <returns></returns>
+        // Создание нового маршрута
         [Authorize]
         public ActionResult Create()
         {
@@ -46,7 +43,7 @@ namespace MetroPortal.Controllers
         }
 
 
-        // GET: Route/Details/5
+        // Просмотр информации о маршруте
         [Authorize]
         public ActionResult Details(int? routeId) {
             // Получаем ID текущего пользователя
@@ -67,11 +64,7 @@ namespace MetroPortal.Controllers
 
         }
 
-        /// <summary>
-        /// Удаление маршрута с заданным номером
-        /// </summary>
-        /// <param name="routeId">Номер маршрута</param>
-        /// <returns></returns>
+        // Удаление маршрута с заданным номером
         [Authorize]
         public ActionResult Delete (int? routeId) {
             // Получаем ID текущего пользователя
@@ -95,11 +88,7 @@ namespace MetroPortal.Controllers
             }
         }
 
-        /// <summary>
-        /// Сохранение маршрута на сервере
-        /// </summary>
-        /// <param name="route"></param>
-        /// <returns></returns>
+        // Сохранение маршрута на сервере
         [HttpPost]
         public string Update(Route route) {
 
