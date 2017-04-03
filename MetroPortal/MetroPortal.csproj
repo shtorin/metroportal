@@ -249,6 +249,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Metro.css" />
     <Content Include="Content\Route.css" />
+    <Content Include="Content\Stations.txt" />
+    <Content Include="Content\Transfers.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -1051,7 +1053,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\RouteController.js" />
     <Content Include="Scripts\RouteService.js" />
+    <Content Include="Scripts\StationsController.js" />
     <Content Include="Scripts\StationsService.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">

@@ -59,5 +59,13 @@ namespace MetroPortal.Controllers {
                                                ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore });
         }
 
+
+        [HttpGet]
+        public string AddTransfers() {
+            SampleData sd = new SampleData();
+            sd.readTransfersFromFile(metroDB, "~/Content/Transfers.txt");
+
+            return "OK";
+        }
     }
 }
